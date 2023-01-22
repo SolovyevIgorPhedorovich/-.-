@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<link type="text/css" href="{{ url_for('static', filename='css/styles.css')}}" rel="stylesheet" />
+	<title>Controller temperatures</title>
+</head>
+<body>
+<dir>
+	<dir class="Info">
+		<dir>
+			<h4>Последнее обновление данных:{{date_time}}<h4>
+		</dir>
+		<dir>
+			<h4>Тепмператруа:{{temperature}}<h4>
+		</dir>
+		<dir>
+			<h4>Влажность:{{humidity}}<h4>
+		</dir>
+	</dir>
+
+	<dir class="Option">
+		<form method="post">
+			<dir>
+				<label>Выключить датчик температуры:<label>
+				<label class="switch">
+					<input type="checkbox" />
+					<span class="slider round"></span>
+				</label>
+			</dir>
+			<dir>
+				<label>Выключить кондиционер:</label>
+				<label class="switch">
+					<input type="checkbox" />
+					<span class="slider round"></span>
+				</label>
+			</dir>
+			<dir>
+				<label>Оптимальная температура:<label>
+				<input type="number" step="1" min="0" max="50" value="20" id="optional_temperature" name="optional_temperature"/>
+			</dir>
+		</form>
+	</dir>
+</dir>
+</body>
+</html>
