@@ -2,6 +2,7 @@ import RPi.GPIO as GPIO
 import dht11
 import time
 import datetime
+import requests
 
 GPIO.setwarnings(True)
 GPIO.setmode(GPIO.BCM)
@@ -13,14 +14,16 @@ try:
         reuslt = instance.read()
 
         if result.is_valid():
-            print ("Last valid input: " + str(datetime.datetime.now()))
-            print ("Temperature: %-3.1f C" % result.temperature)
-            print ("Humidity: %-3.1f %%" % reuslt.humidity)
+            DT = str(datetime.datetime.now())
+            T = result.temperature
+            H = reuslt.humidity
+            
+            requests.post('', datetime = DT, temperature = T, humidity = H)
         else:
             print ("Error: %d" % result.error_code)
         
         time.sleep(5)
 
-except :
+except KeyboardInterrupt:
     print("Cleanup")
     GPIO.cleanup()
