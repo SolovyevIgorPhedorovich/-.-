@@ -1,4 +1,3 @@
-import datetime
 import time
 import DHT11
 from flask import Flask, render_template, request
@@ -11,11 +10,9 @@ def index():
         return render_template("index.html", date_time = DHT11.DT, temperature = DHT11.T, humidity = DHT11.H)
 
 
-#def read():
-#    while True:
-#        sensor_status = request.form['']
-#        conditioner_status = request.form['']
-#        optional_temperature = request.form['optional_temperature']
+def read():
+    sensor_status = request.form['sensor_status']
+    conditioner_status = request.form['conditioner_status']
+    optional_temperature = request.form['optional_temperature']
 
-if __name__=="__main__":
-    app.run(debug=True)
+app.run(debug=True)
