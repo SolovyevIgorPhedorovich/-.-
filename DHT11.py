@@ -4,9 +4,11 @@ import time
 import datetime
 import requests
 
+# инициализация GPIO
 GPIO.setwarnings(True)
 GPIO.setmode(GPIO.BCM)
 
+# считывание данных с помощью вывода 4
 instance = dht11.DHT11(pin = 4)
 
 try:
@@ -22,7 +24,7 @@ try:
         else:
             print ("Error: %d" % result.error_code)
         
-        time.sleep(5)
+        time.sleep(6)
 
 except KeyboardInterrupt:
     print("Cleanup")
