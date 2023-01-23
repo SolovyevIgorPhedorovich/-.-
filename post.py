@@ -10,7 +10,6 @@ def index():
 
 
 def read():
-    sensor_status = request.form['sensor_status']
     conditioner_status = request.form['conditioner_status']
     optional_temperature = request.form['optional_temperature']
 
