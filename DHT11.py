@@ -17,8 +17,8 @@ if result.is_valid():
     T = result.temperature
     H = reuslt.humidity
 else:
-    F = open('example.txt','w')
-    F.write("Error: %d" % result.error_code)
+    F = open('error_log.txt','w')
+    F.write("Error: " + result.error_code)
     F.close() 
 
 GPIO.cleanup()
