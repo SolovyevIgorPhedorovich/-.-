@@ -5,19 +5,28 @@
 	<meta http-equiv="X-UA-Compatible" content="IE=edge">
 	<meta name="viewport" content="width=device-width, initial-scale=1.0">
 	<link type="text/css" href="{{ url_for('static', filename='css/styles.css')}}" rel="stylesheet" />
+        <script type=text/javascript src="{{ url_for('static', filename='js/jquery-3.6.3.min.js') }}"></script>
 	<title>Controller temperatures</title>
 </head>
 <body>
+	<script>
+		setInterval(function()
+		{
+			$('#date_time').load(document.URL + ' #date_time')
+			$('#temperature').load(document.URL + ' #temperature')
+			$('#humidity').load(document.URL + ' #humidity')
+		}, 1000)
+	</script>
 <div>
 	<div class="Info">
 		<div>
-			<h4>Последнее обновление данных:{{date_time}}<h4>
+			<h4 id="date_time">Последнее обновление данных:{{date_time}}<h4>
 		</div>
 		<div>
-			<h4>Тепмператруа:{{temperature}}<h4>
+			<h4 id="temperature">Тепмператруа:{{temperature}}<h4>
 		</div>
 		<div>
-			<h4>Влажность:{{humidity}}<h4>
+			<h4 id="humidity">Влажность:{{humidity}}<h4>
 		</div>
 	</div>
 
