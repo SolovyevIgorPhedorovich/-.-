@@ -1,4 +1,4 @@
-import RPi
+import lirc
 import time
 import DHT11
 import post
@@ -31,16 +31,16 @@ class DHT11:
         self.__pin = pin
 
     def read(self):
-        RPi.GPIO.setup(self.__pin, RPi.GPIO.OUT)
+        lirc.GPIO.setup(self.__pin, lirc.GPIO.OUT)
 
         # отправить начальный максимум
-        self.__send_and_sleep(RPi.GPIO.HIGH, 0.05)
+        self.__send_and_sleep(lirc.GPIO.HIGH, 0.05)
 
         # уменьшите до минимума
-        self.__send_and_sleep(RPi.GPIO.LOW, 0.02)
+        self.__send_and_sleep(lirc.GPIO.LOW, 0.02)
 
         # изменить ввод с помощью подтягивания
-        RPi.GPIO.setup(self.__pin, RPi.GPIO.IN, RPi.GPIO.PUD_UP)
+        lirc.GPIO.setup(self.__pin, lirc.GPIO.IN, lirc.GPIO.PUD_UP)
 
         # собирать данные в массив
         data = self.__collect_input__collect_input()
@@ -75,7 +75,7 @@ class DHT11:
         return DHT11Result(DHT11Result.ERR_NO_ERROR, temperature, humidity)
 
     def __send_and_sleep(self, output, sleep):
-        RPi.GPIO.output(self.__pin, output)
+        lirc.GPIO.output(self.__pin, output)
         time.sleep(sleep)
 
     def __collect_input(self):
@@ -88,7 +88,7 @@ class DHT11:
         last = -1
         data = []
         while True:
-            current = RPi.GPIO.input(self.__pin)
+            current = lirc.GPIO.input(self.__pin)
             data.append(current)
             if last != current:
                 unchanged_count = 0
@@ -118,7 +118,7 @@ class DHT11:
             current_length += 1
 
             if state == STATE_INIT_PULL_DOWN:
-                if current == RPi.GPIO.LOW:
+                if current == lirc.GPIO.LOW:
 
                     # начальный откат
                     state = STATE_INIT_PULL_UP
@@ -126,7 +126,7 @@ class DHT11:
                 else:
                     continue
             if state == STATE_INIT_PULL_UP:
-                if current == RPi.GPIO.HIGH:
+                if current == lirc.GPIO.HIGH:
 
                     # начальное подтягивание
                     state = STATE_DATA_FIRST_PULL_DOWN
@@ -134,7 +134,7 @@ class DHT11:
                 else:
                     continue
             if state == STATE_DATA_FIRST_PULL_DOWN:
-                if current == RPi.GPIO.LOW:
+                if current == lirc.GPIO.LOW:
 
                     # начальный вывод данных, следующим будет вывод данных
                     state = STATE_DATA_PULL_UP
@@ -142,7 +142,7 @@ class DHT11:
                 else:
                     continue
             if state == STATE_DATA_PULL_UP:
-                if current == RPi.GPIO.HIGH:
+                if current == lirc.GPIO.HIGH:
 
                     # проверка подтягивания, равно ли оно 0 или 1
                     current_length = 0
@@ -151,7 +151,7 @@ class DHT11:
                 else:
                     continue
             if state == STATE_DATA_PULL_DOWN:
-                if current == RPi.GPIO.LOW:
+                if current == lirc.GPIO.LOW:
 
                     # сохраняем длину предыдущего периода подтягивания
                     lengths.append(current_length)
