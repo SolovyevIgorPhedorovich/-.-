@@ -3,7 +3,7 @@ import time
 import DHT11
 import post
 
-#Результат датчика DHT11, метод DHT11.read()
+#Результат датчика DHT11, возвращение с помощью DHT11.read()
 class DHT11Result:
 
     ERR_NO_ERROR = 0
