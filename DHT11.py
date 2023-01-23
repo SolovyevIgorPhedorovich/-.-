@@ -10,22 +10,15 @@ GPIO.setmode(GPIO.BCM)
 # считывание данных с помощью вывода 4
 instance = dht11.DHT11(pin = 4)
 
-try:
-    while True:
-        reuslt = instance.read()
+reuslt = instance.read()
 
-        if result.is_valid():
-            DT = str(datetime.datetime.now())
-            T = result.temperature
-            H = reuslt.humidity
-            
-        else:
-            F = open('example.txt','w')
-            F.write("Error: %d" % result.error_code)
-            F.close()
-       
-        time.sleep(6)
+if result.is_valid():
+    DT = str(datetime.datetime.now())
+    T = result.temperature
+    H = reuslt.humidity
+else:
+    F = open('example.txt','w')
+    F.write("Error: %d" % result.error_code)
+    F.close() 
 
-except KeyboardInterrupt:
-    print("Cleanup")
-    GPIO.cleanup()
+GPIO.cleanup()
