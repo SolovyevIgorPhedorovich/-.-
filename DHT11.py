@@ -2,7 +2,6 @@ import RPi.GPIO as GPIO
 import dht11
 import time
 import datetime
-import requests
 
 # инициализация GPIO
 GPIO.setwarnings(True)
@@ -20,10 +19,11 @@ try:
             T = result.temperature
             H = reuslt.humidity
             
-            requests.post('', datetime = DT, temperature = T, humidity = H)
         else:
-            print ("Error: %d" % result.error_code)
-        
+            F = open('example.txt','w')
+            F.write("Error: %d" % result.error_code)
+            F.close()
+       
         time.sleep(6)
 
 except KeyboardInterrupt:
